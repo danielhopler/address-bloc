@@ -84,16 +84,20 @@ class MenuController
   end
 
   def view_entry
-    system "clear"
+    #system already cleared - no need to add another "clear"
     print "View Entry Number: "
+    #need chomp AND to_i to remove white space as well convert result from string to integer
     selection = gets.to_i
     number = (selection - 1)
-    
-    if address_book.entries[number].nil?
-      system "clear"
-      puts "#{selection} is not a valid input"
-    else
+
+    if selection < address_book.entries.count
       puts address_book.entries[number]
+      puts "Press enter to return to the main menu"
+      gets.chomp
+      system "clear"
+    else
+      puts "#{selection} is not a valid input"
+      view_entry
     end
   end
 
